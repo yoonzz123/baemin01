@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">	
+
+	<annotation-driven />
+
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/index.jsp?body=views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="com.spring.baemin" />
+	
+	<!-- MainPage -->
+	<view-controller path="/" view-name="user/main"/>
+	
+	<!-- My배민 Page -->
+	<view-controller path="/myBaemin" view-name="user/myPage/myBaeminForm"/>
+	<view-controller path="/userOrderForm" view-name="user/myPage/userOrderListForm"/>
+	<view-controller path="/userCouponForm" view-name="user/myPage/userCouponForm"/>
+	<view-controller path="/userPointForm" view-name="user/myPage/userPointForm"/>
+	<view-controller path="/userReviewForm" view-name="user/myPage/userReviewForm"/>
+	
+	<!-- 유저 CRUD -->
+	<view-controller path="/loginForm" view-name="user/myPage/user/userLoginForm"/>
+	<view-controller path="/joinForm" view-name="user/myPage/user/userJoinForm"/>
+	
+	<!-- company -->
+	<view-controller path="/companyLoginForm" view-name="company/companyLoginForm"/>
+	<view-controller path="/storeInsertForm" view-name="store/storeInsertForm"/>
+	<view-controller path="/companyInsertForm" view-name="company/companyInsertForm"/>
+	<view-controller path="/companyUpdateForm" view-name="company/companyUpdateForm"/>
+	<view-controller path="/companyDeleteForm" view-name="company/companyDeleteForm"/>
+	
+</beans:beans>

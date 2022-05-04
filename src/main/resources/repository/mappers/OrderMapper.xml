@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.baemin.mapper.OrderMapper">
+
+	
+	<insert id="odrInsert" parameterType="Order">
+		INSERT INTO order0
+		(user_id, odr_addr1, odr_addr2, odr_addr3, odr_phone, odr_isDisposable, odr_ceo_msg, odr_rider_msg, odr_pay, odr_cp, odr_total_amt, odr_reg_date, odr_status)
+		VALUES 
+		(#{user_id}, #{odrAddr1}, #{odrAddr2}, #{odrAddr3}, #{odrPhone}, #{odrIsDis}, #{odrCeoMsg}, #{odrRiderMsg}, #{odrPay}, NULL, #{odrTotalAmt}, now(), DEFAULT)
+	</insert>
+	
+	<select id="odrList" parameterType="String" resultMap="orderResultMap">
+		SELECT * FROM order0 WHERE user_id = #{user_id} ORDER BY odr_no DESC
+	</select>
+	
+	<select id="getOdrNo" resultType="int">
+		SELECT odr_no FROM order0 ORDER BY odr_no DESC LIMIT 1
+	</select>
+	
+	<select id="getProductList" parameterType="int" resultType="Product">
+		SELECT 
+			p.product_no productNo, p.product_name productName, p.store_no storeNo
+		FROM 
+			(SELECT c.* 
+			FROM 
+				o_detail od 
+			INNER JOIN 
+				cart c
+			ON od.cart_no = c.cart_no 
+			WHERE odr_no = #{odrNo}) od_c
+		INNER JOIN 
+			product p 
+		ON od_c.product_no = p.product_no
+	</select>
+	
+	<select id="getCartList" parameterType="int" resultType="Cart">
+		SELECT c.* 
+		FROM o_detail od 
+		INNER JOIN cart c
+		ON od.cart_no = c.cart_no
+		WHERE od.odr_no = #{odrNo}
+	</select>
+	
+	<resultMap id="orderResultMap" type="Order">
+		<id property="odrNo" column="odr_no" />
+		<result property="cartNo" column="cart_no" />
+		<result property="odrIsDis" column="odr_isDis" />
+		<result property="odrTotalAmt" column="odr_total_amt" />
+		<result property="odrStatus" column="odr_status" />
+		<result property="odrAddr1" column="odr_addr1" />
+		<result property="odrAddr2" column="odr_addr2" />
+		<result property="odrAddr3" column="odr_addr3" />
+		<result property="odrPhone" column="odr_phone" />
+		<result property="odrCeoMsg" column="odr_ceo_msg" />
+		<result property="odrRiderMsg" column="odr_rider_msg" />
+		<result property="odrRegDate" column="odr_reg_date" />
+		<result property="odrCp" column="odr_cp" />
+		<result property="odrPay" column="odr_pay" />
+	</resultMap>
+</mapper>	
+
+
+

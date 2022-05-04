@@ -1,0 +1,54 @@
+.loginText{
+	font-size: xx-large;
+	line-height: 3.4em;
+	color: gray;
+	flex-grow: 3;
+}
+.insertImg{
+	width: 20px;
+	height: 20px;
+	margin-top: 2.2rem;
+	line-height: -500px;
+}
+.myPage-category > *{
+	flex: 30%;
+	border: 1px solid #eaeaea;
+	border-collapse: collapse;
+}
+.myPage-category img{
+	width:30px;
+	height: 30px;
+	padding: 20px;
+}
+.myPage-category > *:hover {
+	background-color: #eaeaea;
+}
+.mypage-thank{
+	display: flex;
+	align-items: center;
+}
+.mypage-thank > img {
+	margin: 5px;
+	height: 80%;
+	width: 70%;
+}
+.mypage-thank > span {
+	background-color: #eee;
+	border-radius: 10px;
+	width: 90px;
+	height: 24px;
+	text-align: center;
+	padding-top: 3px;
+}
+.orderList-img{
+	width: 14px;
+	height: 14px;
+
+}
+.odrDetailBtn{
+	border: 1px solid #eee;
+	border-radius: 20px;
+	font-size: 13px;
+	padding: 5px;
+	
+}

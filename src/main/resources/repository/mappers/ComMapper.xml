@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.baemin.mapper.ComMapper">
+
+	<select id="comPassCheck" resultType="String">
+		SELECT com_pass 
+		FROM company 
+		WHERE com_id = #{comId}
+	</select>
+	
+	<insert id="insertCompany" parameterType="Company">
+		INSERT INTO company
+		VALUES(#{comId},#{comPass},#{comCeoName},#{comName},
+		#{comPhone},#{comAddr1},#{comAddr2},#{comAddr3},#{comLicense},
+		#{comEmail}, SYSDATE())
+	</insert>
+	
+	<update id="updateCompany" parameterType="Company">
+		UPDATE company
+		SET com_pass=#{comPass},com_ceo_name=#{comCeoName},com_phone=#{comPhone},com_addr1=#{comAddr1},
+		 com_addr2=#{comAddr2},com_addr3=#{comAddr3},com_license=#{comLicense},com_email=#{comEmail}<!-- , com_reg_date=SYSDATE()  -->
+		 WHERE com_id=#{comId}
+	</update>
+	
+	<delete id="deleteCompany">
+		DELETE FROM company
+		WHERE com_id=#{comId}
+	</delete>	
+	
+	<resultMap id="comResultMap" type="Company">
+		<id property="comId" column="com_id" />
+		<result property="comPass" column="com_pass" />
+		<result property="comCeoName" column="com_ceo_name" />
+		<result property="comPhone" column="com_phone" />
+		<result property="comAddr1" column="com_addr1" />
+		<result property="comAddr2" column="com_addr2" />
+		<result property="comAddr3" column="com_addr3" />
+		<result property="comLicense" column="com_license" />
+		<result property="comEmail" column="com_email" />
+		<result property="comRegDate" column="com_reg_date" />
+	</resultMap>
+</mapper>	
+
+
+

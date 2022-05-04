@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.baemin.mapper.CartMapper">
+	
+	<select id="isProductCheck" parameterType="Cart" resultType="int">
+		SELECT count(*) 
+		FROM cart 
+		WHERE
+			user_id = #{user_id} 
+			AND cart_is_pay_check = 0
+			<if test="productNo != 0">
+			AND product_no=#{productNo}
+			</if>
+			
+	</select>
+	
+	<insert id="cartInsert" parameterType="Cart">
+		INSERT INTO cart 
+			(user_id, product_no, cart_cnt, cart_amt, cart_is_pay_check) 
+		VALUES 
+			(#{user_id}, #{productNo}, #{cartCnt}, #{cartAmt}, 0)
+	</insert>
+	
+	<update id="cartUpdate" parameterType="Cart">
+		UPDATE cart 
+		SET cart_cnt = cart_cnt + #{cartCnt}, 
+			cart_amt = cart_amt + #{cartAmt}
+		WHERE user_id = #{user_id} AND product_no=#{productNo} AND cart_is_pay_check = 0
+	</update>
+	
+	
+	<select id="getCartList" parameterType="String" resultMap="cartResultMap">
+		SELECT * FROM cart WHERE user_id = #{user_id} AND cart_is_pay_check = 0
+	</select>
+	
+	<delete id="cartDelete" parameterType="map">
+		DELETE FROM cart 
+		WHERE 
+			user_id = #{user_id} 
+			<if test="cartNo != 0">
+			And cart_no=#{cartNo}
+			</if>
+			AND cart_is_pay_check = 0
+	</delete>
+	
+	<select id="cartCnt" parameterType="String" resultType="int">
+		SELECT count(*) FROM cart WHERE user_id=#{user_id} AND cart_is_pay_check = 0
+	</select>
+	
+	<update id="cartIsPayCheck" parameterType="String">
+		UPDATE cart SET cart_is_pay_check = 1 WHERE user_id = #{user_id}
+	</update>
+
+	
+	<resultMap id="cartResultMap" type="Cart">
+		<id property="cartNo" column="cart_no" />
+		<result property="user_id" column="user_id" />
+		<result property="productNo" column="product_no" />
+		<result property="cartCnt" column="cart_cnt" />
+		<result property="cartAmt" column="cart_amt" />
+	</resultMap>
+</mapper>	
+
+
+

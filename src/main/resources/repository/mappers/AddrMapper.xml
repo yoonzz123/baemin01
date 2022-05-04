@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.baemin.mapper.AddrMapper">
+	
+	<insert id="addrInsert" parameterType="map">
+		INSERT INTO address
+			(user_id, addr1, addr2, addr3, addr_check)
+		VALUES
+			(#{user_id}, #{addr1}, #{addr2}, #{addr3}, DEFAULT)
+	</insert>
+	
+	
+	<resultMap id="addrResultMap" type="Address">
+		<id property="addrNo" column="addr_no" />
+		<result property="user_id" column="user_id" />
+		<result property="addr1" column="addr1" />
+		<result property="addr2" column="addr2" />
+		<result property="addr3" column="addr3" />
+		<result property="addrCheck" column="addr_check" />
+	</resultMap>
+</mapper>	
+
+
+

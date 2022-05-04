@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.baemin.mapper.UserMapper">
+
+	<insert id="userJoinProcess" parameterType="User">
+		INSERT INTO user
+		values (#{user_id}, #{user_pass}, #{user_name}, #{user_email},
+		#{user_nick}, 0, #{user_isadult}, #{user_isclause},
+		#{user_phone}, 0, SYSDATE())
+	</insert>
+
+	<select id="userLoginProcess" resultType="String" parameterType="String">
+		SELECT user_pass FROM user WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="userEmailCheck" parameterType="String" resultType="int">
+		SELECT count(*) FROM user WHERE user_email = #{user_email}
+	</select>
+	
+	<select id="userNameCheck" parameterType="map" resultType="int">
+		SELECT count(*) FROM user 
+		WHERE user_name = #{user_name}
+				AND user_email = #{user_email}
+	</select>
+	
+	<select id="userIdCheck" parameterType="map" resultType="int">
+		select count(*) from user
+		where user_email = #{user_email} and
+			user_name = #{user_name} and
+			user_id = #{user_id}
+	</select>
+	
+	<select id="userFindId" resultType="String" parameterType="String">
+		select user_id
+		from user
+		where user_email = #{user_email}
+	</select>
+	
+	<select id="userFindPass" resultType="String" parameterType="String">
+		select user_pass
+		from user
+		where user_email = #{user_email} and
+			user_name = #{user_name} and
+			user_id =#{user_id}
+	</select>
+	
+	<!-- 아이디 중복 확인 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*) from user where user_id = #{user_id}
+	</select>
+	
+	<select id="userLoginCheck" parameterType="map" resultType="User">
+		select user_id, user_pass
+			from user
+				where user_id = #{user_id}
+	</select>
+	
+	<!-- dorService  -->
+	<select id="getUser" parameterType="String" resultType="User">
+		SELECT * FROM user WHERE user_id = #{user_id}
+	</select>
+
+	<update id="update1" parameterType="User">
+		UPDATE user 
+		SET user_pass = #{user_pass} 
+		WHERE user_id = #{user_id}
+	</update>
+	
+
+	<resultMap id="userResultMap" type="User">
+		<id property="user_id" column="user_id" />
+		<result property="user_pass" column="user_pass" />
+		<result property="user_name" column="user_name" />
+		<result property="user_email" column="user_email" />
+		<result property="user_nick" column="user_nick" />
+		<result property="user_grade" column="user_grade" />
+		<result property="user_isadult" column="user_isadult" />
+		<result property="user_isclause" column="user_isclause" />
+		<result property="user_phone" column="user_phone" />
+		<result property="user_point" column="user_point" />
+	</resultMap>
+</mapper>	
+
+
+

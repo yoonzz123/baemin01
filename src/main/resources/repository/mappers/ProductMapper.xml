@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.baemin.mapper.ProductMapper">
+
+	<insert id="productInsert" parameterType="Product">
+		INSERT INTO product 
+		(store_no, product_name, product_price, product_img, product_content, product_isPopular, product_sal_num, product_reg_date) 
+		VALUES 
+		(#{storeNo}, #{productName}, #{productPrice}, NULL, #{productContent}, #{productIsPopular}, DEFAULT, null);
+	</insert>
+	
+	<select id="getProductList" parameterType="int" resultMap="productResultMap">
+		SELECT * FROM product WHERE store_no=#{storeNo}
+	</select>
+	
+	<select id="getProduct" resultMap="productResultMap">
+		SELECT * FROM product WHERE product_no=#{productNo}
+	</select>
+	
+	
+	
+	
+	<!-- getCartList -->
+	<select id="getCartList" parameterType="String" resultMap="productResultMap">
+		SELECT p.* FROM cart c 
+		inner join product p 
+		ON c.product_no LIKE p.product_no 
+		WHERE c.user_id = #{user_id} AND cart_is_pay_check = 0
+		ORDER BY c.cart_no
+	</select>
+	
+	<select id="getOdrList" parameterType="int" resultMap="productResultMap">
+		
+	</select>
+	
+	
+	<resultMap id="productResultMap" type="Product">
+		<id property="productNo" column="product_no" />
+		<result property="storeNo" column="store_no" />
+		<result property="productName" column="product_name" />
+		<result property="productIsPopular" column="product_isPopular" />
+		<result property="productSalNum" column="product_sal_num" />
+		<result property="productPrice" column="product_price" />
+		<result property="productImg" column="product_img" />
+		<result property="productContent" column="product_content" />
+		<result property="productRegDate" column="product_reg_date" />
+	</resultMap>
+</mapper>	
+
+
+

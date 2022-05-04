@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.baemin.mapper.StoreMapper">
+	
+	<insert id="storeInsert" parameterType="Store" >
+		INSERT INTO store(
+			com_id, store_name, main_cat, 
+			store_addr1, store_addr2, store_addr3, 
+			store_phone, store_reg_date, store_img, 
+			store_open_time, store_close_time, 
+			store_deli_time_min, store_deli_time_max, 
+			store_scope)
+		values (
+			#{comId}, #{storeName}, #{mainCat}, 
+			#{storeAddr1}, #{storeAddr2},#{storeAddr3}, 
+			#{storePhone}, null, #{storeImg}, 
+			null, null, null, null, null
+			);
+	</insert>
+	
+	<select id="getStore" parameterType="int" resultType="Store" resultMap="resultMap">
+		SELECT * FROM store WHERE store_no = #{storeNo}
+	</select>
+	
+	<select id="getStoreList" parameterType="map" resultType="Store" resultMap="resultMap">
+		SELECT * FROM store
+		
+		<if test="mainCat != 0">
+		<where>
+			main_cat = #{mainCat}
+		</where>
+		</if>
+		
+		<if test="comId != null">
+		<where>
+			com_id = #{comId}
+		</where>
+		</if>
+		ORDER BY store_img is null ASC
+	</select>	
+	
+	<update id="storeUpdate" parameterType="Store" >
+		UPDATE store
+		SET 
+			store_name = #{storeName},
+			main_cat = #{mainCat},
+    		store_addr1 = #{storeAddr1},
+    		store_addr2 = #{storeAddr2},
+    		store_addr3 = #{storeAddr3},
+    		store_phone = #{storePhone},
+    		store_img = #{storeImg}
+		WHERE store_no = #{storeNo}
+	</update>
+	
+	<delete id="storeDelete" parameterType="int">
+		DELETE FROM store WHERE store_no = #{storeNo}
+	</delete>
+	
+	
+	
+	<resultMap id="resultMap" type="Store">
+		<id property="storeNo" column="store_no" />
+		<result property="comId" column="com_id" />
+		<result property="mainCat" column="main_cat" />
+		<result property="storeName" column="store_name" />
+		<result property="storePhone" column="store_phone" />
+		<result property="storeAddr1" column="store_addr1" />
+		<result property="storeAddr2" column="store_addr2" />
+		<result property="storeAddr3" column="store_addr3" />
+		<result property="storeImg" column="store_img" />
+		<result property="storeDeliTimeMin" column="store_deli_time_min" />
+		<result property="storeDeliTimeMax" column="store_deli_time_max" />
+		<result property="storeRegDate" column="store_reg_date" />
+		<result property="storeOpenTime" column="store_open_time" />
+		<result property="storeCloseTime" column="store_close_time" />
+		<result property="storeScope" column="store_scope" />		
+	</resultMap>
+</mapper>	
+
+
+

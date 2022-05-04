@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.spring.baemin.mapper.SearchMapper">
+	
+	<select id="storeSearch" resultType="Store" resultMap="resultMap">
+		SELECT * FROM store WHERE store_name LIKE CONCAT('%',#{searchKey},'%')
+	</select>
+	
+	<insert id="insertSearchKey">
+		INSERT INTO search (user_id, search_keyword, search_reg_date) VALUES (#{user_id}, #{searchKey}, NOW())
+	</insert>
+	
+	<select id="recentSearches" resultType="String">
+		SELECT search_keyword FROM search WHERE user_id = #{user_id} ORDER BY search_reg_date DESC LIMIT 5
+	</select>
+	
+	<select id="popularSearch" resultType="Map">
+		SELECT search_keyword, COUNT(*) AS count FROM search GROUP BY search_keyword HAVING COUNT(*) ORDER BY COUNT(*) DESC LIMIT 5
+	</select>
+	
+	<resultMap id="resultMap" type="Store">
+		<id property="storeNo" column="store_no" />
+		<result property="comId" column="com_id" />
+		<result property="mainCat" column="main_cat" />
+		<result property="storeName" column="store_name" />
+		<result property="storePhone" column="store_phone" />
+		<result property="storeAddr1" column="store_addr1" />
+		<result property="storeAddr2" column="store_addr2" />
+		<result property="storeAddr3" column="store_addr3" />
+		<result property="storeImg" column="store_img" />
+		<result property="storeDeliTimeMin" column="store_deli_time_min" />
+		<result property="storeDeliTimeMax" column="store_deli_time_max" />
+		<result property="storeRegDate" column="store_reg_date" />
+		<result property="storeOpenTime" column="store_open_time" />
+		<result property="storeCloseTime" column="store_close_time" />
+		<result property="storeScope" column="store_scope" />		
+	</resultMap>	
+</mapper>

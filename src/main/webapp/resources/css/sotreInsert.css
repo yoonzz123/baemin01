@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.companyComId{
+	text-align: center;
+	
+}
+.storeFormInsertWrap{
+	width: 100%;
+	border-bottom: 1px solid black;
+}
+.storegongback{
+	margin-bottom: 5%;
+}
+.storeSumbit button:hover{
+	color:red;
+}

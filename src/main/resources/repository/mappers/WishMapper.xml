@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.spring.baemin.mapper.WishMapper">
+	
+	<insert id="wishInsert">
+		INSERT INTO wish (user_id, store_no) VALUES(#{user_id}, #{store_no})
+	</insert>
+	
+	<select id="wishCheck" resultType="int">
+		SELECT COUNT(*) FROM wish WHERE store_no = #{store_no} AND user_id = #{user_id}
+	</select>
+	
+	<delete id="wishDelete">
+		DELETE FROM wish WHERE STORE_no = #{store_no} AND user_id = #{user_id}
+	</delete>
+	
+	<select id="wishCount" resultType="int">
+		SELECT COUNT(*) FROM wish WHERE store_no = #{store_no}
+	</select>
+	
+	<select id="wishList" resultType="Store" resultMap="resultMap">
+		SELECT * FROM store, wish WHERE store.store_no = wish.store_no AND user_id = #{user_id};
+	</select>
+	
+	<select id="wishPopularList" resultType="Map">
+		SELECT s.*, COUNT(w.store_no) AS wish_count FROM store AS s LEFT JOIN wish AS w ON s.store_no = w.store_no WHERE s.main_cat = #{catNo} GROUP BY s.store_no HAVING COUNT(*) ORDER BY wish_count DESC;
+	</select>
+	
+	<resultMap id="resultMap" type="Store">
+		<id property="storeNo" column="store_no" />
+		<result property="comId" column="com_id" />
+		<result property="mainCat" column="main_cat" />
+		<result property="storeName" column="store_name" />
+		<result property="storePhone" column="store_phone" />
+		<result property="storeAddr1" column="store_addr1" />
+		<result property="storeAddr2" column="store_addr2" />
+		<result property="storeAddr3" column="store_addr3" />
+		<result property="storeImg" column="store_img" />
+		<result property="storeDeliTimeMin" column="store_deli_time_min" />
+		<result property="storeDeliTimeMax" column="store_deli_time_max" />
+		<result property="storeRegDate" column="store_reg_date" />
+		<result property="storeOpenTime" column="store_open_time" />
+		<result property="storeCloseTime" column="store_close_time" />
+		<result property="storeScope" column="store_scope" />		
+	</resultMap>
+	
+</mapper>

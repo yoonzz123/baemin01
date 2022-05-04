@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.loginFormIn{
+	border-top:1px dashed black;
+	
+}
+.loginFormIn1{
+	margin-top:  5%;
+}
+.loginFormWrap{
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px dashed black;
+}
+.companyLogin{
+	margin-top: 5%;
+}
+.gongback{
+	margin-bottom: 5%;
+}
+.companyLoginWrap{
+	text-align: center;
+}
+.dashed1{
+	margin-top: 5%;
+	border-bottom: 1px dashed black;
+}
+.dashed2{
+	border-bottom: 1px dashed black;
+}
+.dashed3{
+	border-bottom: 1px solid black;
+}
+.userCheckWrap{
+	text-align: center;
+}
+.userCheckButton{
+	margin-bottom: 5%;
+	margin-top: 5%;
+}

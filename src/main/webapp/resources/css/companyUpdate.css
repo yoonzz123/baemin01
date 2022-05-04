@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.companyUpdateForm{
+	text-align: center;
+}
+.companygongback{
+	margin-bottom: 5%;
+}
+.solid{
+	border-bottom: 1px solid black;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.baemin.mapper.DeliveryMapper">
+	
+	
+	<select id="getDeliveryList" parameterType="map" resultType="Delivery" resultMap="deliMap">
+		SELECT * FROM delivery WHERE store_no =#{storeNo}
+	</select>	
+	
+	<insert id="insertDeliveryList" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="" keyColumn="">
+		INSERT INTO delivery (store_no, deli_price, deli_area) VALUES
+		<foreach collection="list" item="item" separator=",">
+		(#{item.storeNo},#{item.deliPrice},#{item.deliArea})
+		</foreach>
+	</insert>
+	
+	<insert id="insertDelivery" parameterType="Delivery">
+		INSERT INTO delivery
+		(store_no,deli_price,deli_area) VALUES(#{storeNo},#{deliPrice},#{deliArea})
+	</insert>
+	
+	<update id="updateDelivery" parameterType="Delivery">
+		update delivery set deli_price=#{deliPrice}, deli_area=#{deliArea} WHERE deli_no=#{deliNo};
+	</update>
+	
+	<delete id="deleteDelivery">
+		DELETE FROM delivery WHERE deli_no=#{deliNo}
+	</delete>
+	
+	<resultMap id="deliMap" type="Delivery">
+		<id property="deliNo" column="deli_no" />
+		<result property="storeNo" column="store_no" />
+		<result property="deliPrice" column="deli_price" />
+		<result property="deliArea" column="deli_area" />
+	</resultMap>
+</mapper>	
+
+
+
